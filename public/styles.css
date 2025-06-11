@@ -1,10 +1,61 @@
-body {
-  background-image: url('/images/background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white; /* for better text contrast */
+.logo {
+  width: 150px; /* or whatever size you want */
+  height: auto;
 }
+
+.logo-watermark {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  opacity: 0.5;
+  pointer-events: none; /* Don’t block clicks */
+}
+
+
+
+
+.founders-section {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+#founders-btn {
+  background-color: #0a66c2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#founders-links {
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+#founders-links a {
+  display: block;
+  color: #0a66c2;
+  text-decoration: none;
+  margin: 3px 0;
+}
+
+#founders-links a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
 
 
 

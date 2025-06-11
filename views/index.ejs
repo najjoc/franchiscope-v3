@@ -150,7 +150,7 @@
 <img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
 
 <% if (!role) { %>
-  <!-- Contacts button and links only on homepage -->
+  <!-- Contacts button and hidden links only on homepage -->
   <div class="founders-section">
     <button id="founders-btn">Contacts</button>
     <div id="founders-links" class="hidden">
@@ -164,7 +164,7 @@
   </div>
 <% } %>
 
-<!-- JS to toggle contacts links -->
+<!-- JavaScript to toggle the hidden links -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const btn = document.getElementById('founders-btn');

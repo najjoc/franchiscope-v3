@@ -146,8 +146,39 @@
     </div>
   <% } %>
 
-  <!-- Logo watermark at bottom right -->
-  <img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
+ <!-- Logo watermark at bottom right -->
+<img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
+
+<% if (!role) { %>
+  <!-- Contacts button and links only on homepage -->
+  <div class="founders-section">
+    <button id="founders-btn">Contacts</button>
+    <div id="founders-links" class="hidden">
+      <a href="https://www.linkedin.com/in/charbel-al-najjar-a6708a21b?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BYZXIRIUtTBKA7WbEsYhulg%3D%3D" target="_blank">
+        LinkedIn: Charbel Al Najjar
+      </a><br>
+      <a href="https://www.linkedin.com/in/ghina-harajly-8426ab290?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJ0sB0dJ8RwCQy0j9FSLd%2Fg%3D%3D" target="_blank">
+        LinkedIn: Ghina Harajly
+      </a>
+    </div>
+  </div>
+<% } %>
+
+<!-- JS to toggle contacts links -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('founders-btn');
+    const links = document.getElementById('founders-links');
+
+    if (btn) {
+      btn.addEventListener('click', () => {
+        links.classList.toggle('hidden');
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
+
+

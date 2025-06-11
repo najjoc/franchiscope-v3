@@ -1,8 +1,23 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>FranchiScope</title>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-color: #ffffff; /* White background, update if needed */
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+    .logo-watermark {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px; /* Adjust size as needed */
+      opacity: 0.8;
+      pointer-events: none; /* Prevent it from blocking clicks */
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to FranchiScope</h1>
@@ -131,6 +146,8 @@
     </div>
   <% } %>
 
+  <!-- Logo watermark at bottom right -->
+  <img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
+
 </body>
 </html>
-

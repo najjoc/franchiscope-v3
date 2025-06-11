@@ -206,3 +206,42 @@ ul {
 ul li {
   margin-bottom: 8px;
 }
+
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5em; /* smaller headline for small screens */
+  }
+
+  .section {
+    padding: 10px;
+  }
+
+  .section label,
+  .section select,
+  .section button,
+  .section a,
+  .section textarea,
+  .section input[type="text"] {
+    font-size: 1em; /* bigger text for small screens */
+  }
+
+  #founders-btn {
+    font-size: 0.9em; /* make button text clearer */
+    padding: 8px 12px;
+  }
+
+  .logo-watermark {
+    width: 80px; /* adjust size for small screens */
+    height: auto;
+  }
+
+  .founders-section {
+    bottom: 15px;
+    left: 15px;
+  }
+
+  #founders-links {
+    font-size: 0.9em;
+  }
+}

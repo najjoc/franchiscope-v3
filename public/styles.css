@@ -26,7 +26,8 @@
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px 15px; /* larger padding for better tap targets */
+  font-size: 1rem; /* bigger button text by default */
   cursor: pointer;
 }
 
@@ -34,15 +35,15 @@
   margin-top: 5px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 14px;
+  padding: 10px 15px; /* larger padding */
+  font-size: 1rem;
 }
 
 #founders-links a {
   display: block;
   color: #0a66c2;
   text-decoration: none;
-  margin: 3px 0;
+  margin: 5px 0;
 }
 
 #founders-links a:hover {
@@ -60,6 +61,7 @@ body {
   padding: 20px;
   background-color: #f0f2f5;
   color: #333;
+  font-size: 16px; /* default font size */
 }
 
 /* Headings */
@@ -102,11 +104,12 @@ h1, h2 {
 .btn {
   background-color: #007BFF;
   color: #ffffff;
-  padding: 8px 15px;
+  padding: 10px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 1rem;
 }
 
 .btn:hover {
@@ -118,12 +121,13 @@ input[type="text"],
 textarea,
 select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   border-radius: 6px;
   border: 1px solid #ccc;
   box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
 }
 
 input[type="text"]:focus,
@@ -138,11 +142,12 @@ select:focus {
 button {
   background: linear-gradient(45deg, #007BFF, #00c6ff);
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
 }
 
 button:hover {
@@ -203,12 +208,16 @@ ul li {
 
 /* Responsive styling for smaller screens */
 @media (max-width: 768px) {
+  body {
+    font-size: 18px; /* bigger font on mobile for readability */
+  }
+
   h1 {
-    font-size: 1.5em;
+    font-size: 1.8em;
   }
 
   .section {
-    padding: 10px;
+    padding: 15px;
   }
 
   .section label,
@@ -217,16 +226,16 @@ ul li {
   .section a,
   .section textarea,
   .section input[type="text"] {
-    font-size: 1em;
+    font-size: 1.2em; /* larger text on mobile */
   }
 
   #founders-btn {
-    font-size: 0.9em;
-    padding: 8px 12px;
+    font-size: 1.2em;
+    padding: 10px 15px;
   }
 
   .logo-watermark {
-    width: 80px;
+    width: 100px;
     height: auto;
   }
 
@@ -236,6 +245,6 @@ ul li {
   }
 
   #founders-links {
-    font-size: 0.9em;
+    font-size: 1.1em;
   }
 }

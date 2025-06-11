@@ -1,5 +1,6 @@
+/* Logo styling */
 .logo {
-  width: 150px; /* or whatever size you want */
+  width: 150px;
   height: auto;
 }
 
@@ -9,12 +10,10 @@
   right: 20px;
   width: 100px;
   opacity: 0.5;
-  pointer-events: none; /* Don’t block clicks */
+  pointer-events: none;
 }
 
-
-
-
+/* Contacts (Founders) button styling */
 .founders-section {
   position: fixed;
   bottom: 20px;
@@ -53,11 +52,6 @@
 .hidden {
   display: none;
 }
-
-
-
-
-
 
 /* Base styling */
 body {
@@ -207,10 +201,10 @@ ul li {
   margin-bottom: 8px;
 }
 
-
+/* Responsive styling for smaller screens */
 @media (max-width: 768px) {
   h1 {
-    font-size: 1.5em; /* smaller headline for small screens */
+    font-size: 1.5em;
   }
 
   .section {
@@ -223,16 +217,16 @@ ul li {
   .section a,
   .section textarea,
   .section input[type="text"] {
-    font-size: 1em; /* bigger text for small screens */
+    font-size: 1em;
   }
 
   #founders-btn {
-    font-size: 0.9em; /* make button text clearer */
+    font-size: 0.9em;
     padding: 8px 12px;
   }
 
   .logo-watermark {
-    width: 80px; /* adjust size for small screens */
+    width: 80px;
     height: auto;
   }
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat about <%= franchiseeName %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Chat about <%= franchiseeName %></h1>
+  <ul id="messages">
+    <% messages.forEach(function(msg) { %>
+      <li><strong><%= msg.sender %>:</strong> <%= msg.text %></li>
+    <% }); %>
+  </ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" /><button>Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io('/<%= franchiseeId %>');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var messages = document.getElementById('messages');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value) {
+        var sender = prompt("Enter your role (franchisee or future-franchisee):");
+
+        socket.emit('chat message', {
+          text: input.value,
+          sender: sender
+        });
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', function(msg) {
+      var item = document.createElement('li');
+      item.innerHTML = '<strong>' + msg.sender + ':</strong> ' + msg.text;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback for <%= franchiseName %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Feedback for <%= franchiseName %></h1>
+  <ul>
+    <% feedbacks.forEach(function(item) { %>
+      <li>
+        <strong>Rating:</strong> <%= item.rating %><br>
+        <strong>Feedback:</strong> <%= item.info %><br>
+        <% if (item.contractFileName) { %>
+          <strong>Contract:</strong> <a href="/uploads/<%= item.contractFileName %>" target="_blank">View Contract</a><br>
+        <% } else { %>
+          <strong>Contract:</strong> N/A<br>
+        <% } %>
+
+        <!-- Show franchisor responses only if userRole is 'franchisee' -->
+        <% if (userRole === "franchisee") { %>
+          <h4>Franchisor Responses:</h4>
+          <% responses.forEach(function(r) { if (r.feedbackId.toString() === item._id.toString()) { %>
+            <p><strong><%= r.responder %>:</strong> <%= r.response %></p>
+          <% }}); %>
+        <% } %>
+
+        <!-- Chat with franchisee -->
+        <form action="/start-chat/<%= item._id %>" method="get">
+          <button type="submit">Chat with Franchisee</button>
+        </form>
+        <hr>
+      </li>
+    <% }); %>
+  </ul>
+  <a href="/">Back to Home</a>
+</body>
+</html>

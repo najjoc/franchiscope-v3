@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin View</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <% if (!isAdmin) { %>
+    <h1>Admin Login</h1>
+    <form action="/admin" method="post">
+      <input type="text" name="username" placeholder="Admin username" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+  <% } else { %>
+    <h1>Franchise Feedbacks</h1>
+    <table border="1">
+      <tr>
+        <th>Franchise</th>
+        <th>Feedback</th>
+        <th>Rating</th>
+        <th>Contract</th>
+        <th>Actions</th>
+      </tr>
+      <% users.forEach(function(user) { %>
+        <tr>
+          <td><%= user.franchiseName %></td>
+          <td><%= user.info %></td>
+          <td><%= user.rating %></td>
+          <td>
+            <% if (user.contractFileName) { %>
+              <a href="/uploads/<%= user.contractFileName %>" target="_blank">View Contract</a>
+            <% } else { %>
+              N/A
+            <% } %>
+          </td>
+          <td>
+            <form action="/delete/<%= user._id %>" method="post" style="display:inline;">
+              <button type="submit">Delete Feedback</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+
+    <h1>All Chat Messages</h1>
+    <table border="1">
+      <tr>
+        <th>Room</th>
+        <th>Sender</th>
+        <th>Message</th>
+        <th>Timestamp</th>
+        <th>Actions</th>
+      </tr>
+      <% messages.forEach(function(msg) { %>
+        <tr>
+          <td><%= msg.room %></td>
+          <td><%= msg.sender %></td>
+          <td><%= msg.text %></td>
+          <td><%= msg.timestamp.toLocaleString() %></td>
+          <td>
+            <form action="/delete-message/<%= msg._id %>" method="post" style="display:inline;">
+              <button type="submit">Delete Message</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+
+    <h1>Franchisor Responses</h1>
+    <table border="1">
+      <tr>
+        <th>Franchise</th>
+        <th>Franchisee Feedback</th>
+        <th>Franchisor Response</th>
+        <th>Responder</th>
+        <th>Actions</th>
+      </tr>
+      <% responses.forEach(function(r) { %>
+        <tr>
+          <% if (r.feedbackId) { %>
+            <td><%= r.feedbackId.franchiseName %></td>
+            <td><%= r.feedbackId.info %></td>
+          <% } else { %>
+            <td colspan="2">Original feedback deleted</td>
+          <% } %>
+          <td><%= r.response %></td>
+          <td><%= r.responder %></td>
+          <td>
+            <form action="/delete-response/<%= r._id %>" method="post" style="display:inline;">
+              <button type="submit">Delete Response</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+
+    <h1>Anonymous Role Usage Statistics (Total Visits)</h1>
+    <ul>
+      <li>Franchisee: <%= sectionCounts['franchisee'] || 0 %> visits</li>
+      <li>Future Franchisee: <%= sectionCounts['future-franchisee'] || 0 %> visits</li>
+      <li>Franchisor: <%= sectionCounts['franchisor'] || 0 %> visits</li>
+    </ul>
+
+    <a href="/">Back to Home</a>
+  <% } %>
+</body>
+</html>

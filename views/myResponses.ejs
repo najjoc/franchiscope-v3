@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Responses</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>View Franchisor Responses to My Feedbacks</h1>
+
+  <form action="/my-responses" method="get">
+    <label>Select your franchise:</label><br>
+    <select name="franchiseName" required>
+      <option value="">Select a franchise</option>
+      <% franchises.forEach(function(f) { %>
+        <option value="<%= f %>" <%= f === selectedFranchise ? 'selected' : '' %>><%= f %></option>
+      <% }); %>
+    </select><br><br>
+    <button type="submit">View Responses</button>
+  </form>
+
+  <% if (selectedFranchise) { %>
+    <% if (message) { %>
+      <p><%= message %></p>
+    <% } else { %>
+      <% responses.forEach(function(r) { %>
+        <div>
+          <h3>Your Feedback:</h3>
+          <p><%= r.feedbackId.info %> (Rating: <%= r.feedbackId.rating %>)</p>
+          <h3>Franchisor Response:</h3>
+          <p><%= r.response %> (by <%= r.responder %>)</p>
+        </div>
+        <hr>
+      <% }); %>
+    <% } %>
+  <% } %>
+
+  <a href="/">Back to Home</a>
+</body>
+</html>

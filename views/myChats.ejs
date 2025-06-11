@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Chats</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>My Chats</h1>
+  <ul>
+    <% feedbacks.forEach(function(item) { %>
+      <li>
+        <strong>Franchise:</strong> <%= item.franchiseName %><br>
+        <strong>Feedback:</strong> <%= item.info %><br>
+        <form action="/start-chat/<%= item._id %>" method="get">
+          <button type="submit">Enter Chat</button>
+        </form>
+        <hr>
+      </li>
+    <% }); %>
+  </ul>
+  <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose a Franchise</title>
+</head>
+<body>
+  <h1>Choose a Franchise to View Feedback</h1>
+  <ul>
+    <% franchises.forEach(function(franchise) { %>
+      <li>
+        <a href="/feedback/<%= franchise %>"><%= franchise %></a>
+      </li>
+    <% }); %>
+  </ul>
+  <a href="/">Back to Home</a>
+</body>
+</html>

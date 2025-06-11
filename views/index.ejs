@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FranchiScope</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Welcome to FranchiScope</h1>
+
+  <!-- Role selector dropdown -->
+  <div class="section section-yellow">
+    <form action="/" method="POST">
+      <label>I am a:</label>
+      <select name="role" required>
+        <option value="">Select your role</option>
+        <option value="franchisee" <%= role === 'franchisee' ? 'selected' : '' %>>Franchisee</option>
+        <option value="future-franchisee" <%= role === 'future-franchisee' ? 'selected' : '' %>>Future Franchisee</option>
+        <option value="franchisor" <%= role === 'franchisor' ? 'selected' : '' %>>Franchisor</option>
+        <option value="admin" <%= role === 'admin' ? 'selected' : '' %>>Admin</option>
+      </select>
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <!-- Franchisee: show feedback submission form -->
+  <% if (role === 'franchisee') { %>
+    <div class="section section-blue">
+      <h2>Submit Your Franchise Feedback</h2>
+      <form action="/submit-feedback" method="POST" enctype="multipart/form-data">
+        <label>Franchise Name:</label><br>
+        <input type="text" name="franchiseName" required><br><br>
+
+        <label>Your feedback:</label><br>
+        <textarea name="info" required></textarea><br><br>
+
+        <label>Rate the contract (1–10):</label><br>
+        <select name="rating" required>
+          <option value="">Select a rating</option>
+          <% for (let i = 1; i <= 10; i++) { %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
+        </select><br><br>
+
+        <label>Upload contract (optional):</label><br>
+        <input type="file" name="contractFile"><br><br>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+
+      <br>
+      <a href="/my-responses">View Responses from Franchisors</a>
+      <br><br>
+      <a href="/">Back to Home</a>
+    </div>
+  <% } %>
+
+  <!-- Future Franchisee: show list of available franchise names -->
+  <% if (role === 'future-franchisee') { %>
+    <div class="section section-green">
+      <h2>Available Franchises</h2>
+      <ul>
+        <% franchises.forEach(function(f) { %>
+          <li><a href="/feedback/<%= f %>"><%= f %></a></li>
+        <% }); %>
+      </ul>
+
+      <br>
+      <a href="/">Back to Home</a>
+    </div>
+  <% } %>
+
+  <!-- Franchisor: select franchise and show feedback + respond -->
+  <% if (role === 'franchisor') { %>
+    <div class="section section-blue">
+      <h2>Franchisee Feedbacks (Respond as Franchisor)</h2>
+      <form action="/franchisor-feedback" method="POST">
+        <label>Select your franchise:</label><br>
+        <select name="selectedFranchise" required>
+          <option value="">Select a franchise</option>
+          <% franchises.forEach(function(f) { %>
+            <option value="<%= f %>" <%= f === selectedFranchise ? 'selected' : '' %>><%= f %></option>
+          <% }); %>
+        </select><br><br>
+        <button type="submit">View Feedbacks</button>
+      </form>
+
+      <% if (message) { %>
+        <p><%= message %></p>
+      <% } %>
+
+      <% if (selectedFranchise && feedbacks.length > 0) { %>
+        <% feedbacks.forEach(function(f) { %>
+          <% if (f.franchiseName === selectedFranchise) { %>
+            <div class="section section-green">
+              <h3><%= f.franchiseName %> (Rating: <%= f.rating %>)</h3>
+              <p><%= f.info %></p>
+              <form action="/respond-feedback/<%= f._id %>" method="POST">
+                <input type="text" name="responder" placeholder="Your name" required><br><br>
+                <textarea name="response" placeholder="Your response" required></textarea><br><br>
+                <button type="submit">Submit Response</button>
+              </form>
+            </div>
+          <% } %>
+        <% }); %>
+      <% } else if (selectedFranchise) { %>
+        <p>No feedback available for this franchise yet.</p>
+      <% } %>
+
+      <br>
+      <a href="/">Back to Home</a>
+    </div>
+  <% } %>
+
+  <!-- Admin: show admin link -->
+  <% if (role === 'admin') { %>
+    <div class="section section-yellow">
+      <h2>Admin Access</h2>
+      <a href="/admin">Go to Admin Page</a>
+
+      <br><br>
+      <a href="/">Back to Home</a>
+    </div>
+  <% } %>
+
+  <!-- My Chats link for franchisee and future-franchisee -->
+  <% if (role === 'franchisee' || role === 'future-franchisee') { %>
+    <div class="section section-green">
+      <a href="/my-chats">My Chats</a>
+    </div>
+  <% } %>
+
+</body>
+</html>

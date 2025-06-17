@@ -95,6 +95,26 @@
       <% }); %>
     </table>
 
+    <h1>📧 Collected Emails</h1>
+    <table border="1">
+      <tr>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+      <% emailUsers.forEach(function(user) { %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.timestamp.toLocaleString() %></td>
+          <td>
+            <form action="/delete-email/<%= user._id %>" method="post" style="display:inline;" onsubmit="return confirm('Delete this email?');">
+              <button type="submit">Delete Email</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </table>
+
     <h1>Anonymous Role Usage Statistics (Total Visits)</h1>
     <ul>
       <li>Franchisee: <%= sectionCounts['franchisee'] || 0 %> visits</li>

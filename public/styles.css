@@ -176,3 +176,37 @@ a:hover {
     font-size: 1.4rem;
   }
 }
+
+
+
+.nps-scale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.nps-box {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  font: 600 14px/40px Arial, sans-serif;
+  text-align: center;
+  color: #fff;
+  transition: transform .15s;
+}
+
+.nps-box input { display: none; }
+
+.nps-box.det { background:#ff6b6b; }
+.nps-box.pas { background:#f9b44d; }
+.nps-box.pro { background:#2ecc71; }
+
+.nps-box:hover,
+.nps-box input:checked + span,
+.nps-box.selected {
+  outline:3px solid #222;
+  transform:scale(1.05);
+}

@@ -6,208 +6,203 @@
   <style>
     body {
       background-color: #ffffff;
-      color: #333;
-      font-family: Arial, sans-serif;
+      color: #111;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
     }
+
+    h1, h2 { font-weight: 600; }
+
+    /* watermark logo */
     .logo-watermark {
       position: fixed;
       bottom: 20px;
       right: 20px;
       width: 100px;
-      opacity: 0.8;
+      opacity: 0.7;
       pointer-events: none;
     }
 
-    /* NPS scale styles */
-    .nps-scale {
+    /* hero landing */
+    .hero-container {
+      min-height: 100vh;
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .nps-box {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      border-radius: 6px;
-      cursor: pointer;
-      font: 600 14px/40px Arial, sans-serif;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      color: #fff;
-      transition: transform .15s;
+      padding: 40px;
+    }
+    .hero-title   { font-size: 3em;  margin-bottom: 10px; }
+    .hero-subtitle{ font-size: 1.2em; max-width: 600px; margin-bottom: 30px; color:#555; }
+
+    .hero-btn, select {
+      padding: 14px 24px; font-size: 1.1em; margin: 10px 0;
+      border-radius: 30px; border: 2px solid #111; background:#fff; color:#111;
+      cursor: pointer; transition: .3s;
+      width: 260px;
+    }
+    .hero-btn:hover{ background:#111; color:#fff; }
+
+    /* generic container */
+    .section {
+      max-width: 800px; margin: 40px auto; padding: 30px;
+      background:#f9f9f9; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,.05);
     }
 
-    .nps-box input { display: none; }
-
-    .nps-box.det { background:#ff6b6b; }
-    .nps-box.pas { background:#f9b44d; }
-    .nps-box.pro { background:#2ecc71; }
-
-    .nps-box:hover,
-    .nps-box input:checked + span,
-    .nps-box.selected {
-      outline:3px solid #222;
-      transform:scale(1.05);
+    button{
+      padding:12px 24px; font-size:1.1em; border-radius:8px; border:none;
+      background:#111; color:#fff; cursor:pointer; transition:.3s;
     }
+    button:hover{ background:#333; }
+
+    a{ color:#007BFF; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* founders corner */
+    .founders-section{ position:fixed; bottom:20px; left:20px; }
+    #founders-btn{ background:#007BFF; color:#fff; border:none; padding:10px 15px; border-radius:6px; cursor:pointer; }
+    #founders-links{ margin-top:10px; }
+    #founders-links a{ display:block; color:#007BFF; }
+    .hidden{ display:none; }
+
+    .form-section{ margin-top:20px; }
+    input, select, textarea{ width:100%; padding:10px; margin:8px 0 16px; border-radius:6px; border:1px solid #ccc; }
+
+    /* NPS scale */
+    .nps-scale{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
+    .nps-btn{
+      padding:8px 14px; border-radius:6px; font-weight:bold; color:#fff; cursor:pointer; user-select:none;
+      transition:transform .15s;
+    }
+    .nps-btn.det{ background:#f44336; }
+    .nps-btn.pas{ background:#ff9800; }
+    .nps-btn.pro{ background:#4caf50; }
+    .nps-btn.selected{ outline:3px solid #222; transform:scale(1.05); }
+    .nps-btn input{ display:none; }
   </style>
 </head>
 <body>
-  <h1>Welcome to FranchiScope</h1>
 
-  <div class="section section-yellow">
+<% if (!role) { %>
+  <!-- Landing / role chooser -->
+  <div class="hero-container">
+    <h1 class="hero-title">FranchiScope</h1>
+    <p class="hero-subtitle">Know what you're signing before you sign. Read real, anonymous reviews of franchise contracts. Avoid traps. Choose the right brand.</p>
+
     <form action="/home" method="POST">
-      <label>I am a:</label>
+      <select name="role" required>
+        <option value="">I am a...</option>
+        <option value="franchisee">Franchisee</option>
+        <option value="future-franchisee">Future Franchisee</option>
+        <option value="franchisor">Franchisor</option>
+        <option value="admin">Admin</option>
+      </select><br>
+      <button type="submit" class="hero-btn">Get Started →</button>
+    </form>
+
+    <div class="founders-section">
+      <button id="founders-btn">Contacts</button>
+      <div id="founders-links" class="hidden">
+        <a href="https://www.linkedin.com/in/charbel-al-najjar-a6708a21b" target="_blank">LinkedIn: Charbel Al Najjar</a>
+        <a href="https://www.linkedin.com/in/ghina-harajly-8426ab290" target="_blank">LinkedIn: Ghina Harajly</a>
+      </div>
+    </div>
+  </div>
+
+<% } else { %>
+  <h1 style="text-align:center; padding-top:20px;">Welcome to FranchiScope</h1>
+
+  <div class="section">
+    <form action="/home" method="POST">
+      <label style="font-weight:bold;">I am a:</label>
       <select name="role" required>
         <option value="">Select your role</option>
-        <option value="franchisee" <%= role === 'franchisee' ? 'selected' : '' %>>Franchisee</option>
-        <option value="future-franchisee" <%= role === 'future-franchisee' ? 'selected' : '' %>>Future Franchisee</option>
-        <option value="franchisor" <%= role === 'franchisor' ? 'selected' : '' %>>Franchisor</option>
-        <option value="admin" <%= role === 'admin' ? 'selected' : '' %>>Admin</option>
-      </select>
+        <option value="franchisee" <%= role==='franchisee'?'selected':'' %>>Franchisee</option>
+        <option value="future-franchisee" <%= role==='future-franchisee'?'selected':'' %>>Future Franchisee</option>
+        <option value="franchisor" <%= role==='franchisor'?'selected':'' %>>Franchisor</option>
+        <option value="admin" <%= role==='admin'?'selected':'' %>>Admin</option>
+      </select><br><br>
       <button type="submit">Continue</button>
     </form>
   </div>
 
-  <hr>
-
-  <% if (role === 'franchisee') { %>
-    <div class="section section-blue">
-      <h2>Submit Your Franchise Feedback</h2>
+  <% if (role==='franchisee') { %>
+    <div class="section form-section">
+      <h2>Submit Feedback</h2>
       <form action="/submit-feedback" method="POST" enctype="multipart/form-data">
-        <label>Franchise Name:</label><br>
-        <input type="text" name="franchiseName" required><br><br>
+        <label>Franchise Name:</label>
+        <input type="text" name="franchiseName" required>
 
-        <label>Your feedback:</label><br>
-        <textarea name="info" required></textarea><br><br>
+        <label>Your feedback:</label>
+        <textarea name="info" rows="4" required></textarea>
 
-        <label>How likely are you to recommend this contract? (0 = not at all, 10 = absolutely)</label><br>
+        <label>How likely are you to recommend this contract? (0 = not at all, 10 = absolutely)</label>
         <div class="nps-scale">
-          <% for (let i = 0; i <= 10; i++) { %>
-            <label class="nps-box <%= i <= 6 ? 'det' : (i <= 8 ? 'pas' : 'pro') %>">
+          <% for(let i=0;i<=10;i++){ let cls=i<=6?'det':(i<=8?'pas':'pro'); %>
+            <label class="nps-btn <%= cls %>">
               <input type="radio" name="rating" value="<%= i %>" required>
               <span><%= i %></span>
             </label>
           <% } %>
-        </div><br>
+        </div>
 
-        <label>Upload contract (optional):</label><br>
-        <input type="file" name="contractFile"><br><br>
+        <label>Upload Contract (optional):</label>
+        <input type="file" name="contractFile">
 
         <button type="submit">Submit Feedback</button>
       </form>
-
       <br>
-      <a href="/my-responses">View Responses from Franchisors</a>
-      <br><br>
-      <a href="/home">Back to Home</a>
+      <a href="/my-chats">📂 My Chats</a> |
+      <a href="/my-responses">📬 My Responses</a>
     </div>
   <% } %>
 
-  <% if (role === 'future-franchisee') { %>
-    <div class="section section-green">
-      <h2>Available Franchises</h2>
-      <ul>
-        <% franchises.forEach(function(f) { %>
-          <li><a href="/feedback/<%= f %>"><%= f %></a></li>
-        <% }); %>
-      </ul>
-      <br>
-      <a href="/home">Back to Home</a>
+  <% if (role==='future-franchisee') { %>
+    <div class="section form-section">
+      <h2>Explore Franchise Feedback</h2>
+      <a href="/franchise-list">🔍 View Available Franchises</a>
     </div>
   <% } %>
 
-  <% if (role === 'franchisor') { %>
-    <div class="section section-blue">
-      <h2>Franchisee Feedbacks (Respond as Franchisor)</h2>
+  <% if (role==='franchisor') { %>
+    <div class="section form-section">
+      <h2>Respond to Franchisee Feedback</h2>
       <form action="/franchisor-feedback" method="POST">
-        <label>Select your franchise:</label><br>
-        <select name="selectedFranchise" required>
-          <option value="">Select a franchise</option>
-          <% franchises.forEach(function(f) { %>
-            <option value="<%= f %>" <%= f === selectedFranchise ? 'selected' : '' %>><%= f %></option>
-          <% }); %>
-        </select><br><br>
-        <button type="submit">View Feedbacks</button>
+        <label>Select Franchise:</label>
+        <input type="text" name="selectedFranchise" required>
+        <button type="submit">View Feedback</button>
       </form>
-
-      <% if (message) { %>
-        <p><%= message %></p>
-      <% } %>
-
-      <% if (selectedFranchise && feedbacks.length > 0) { %>
-        <% feedbacks.forEach(function(f) { %>
-          <% if (f.franchiseName === selectedFranchise) { %>
-            <div class="section section-green">
-              <h3><%= f.franchiseName %> (Rating: <%= f.rating %>)</h3>
-              <p><%= f.info %></p>
-              <form action="/respond-feedback/<%= f._id %>" method="POST">
-                <input type="text" name="responder" placeholder="Your name" required><br><br>
-                <textarea name="response" placeholder="Your response" required></textarea><br><br>
-                <button type="submit">Submit Response</button>
-              </form>
-            </div>
-          <% } %>
-        <% }); %>
-      <% } else if (selectedFranchise) { %>
-        <p>No feedback available for this franchise yet.</p>
-      <% } %>
-
-      <br>
-      <a href="/home">Back to Home</a>
     </div>
   <% } %>
 
-  <% if (role === 'admin') { %>
-    <div class="section section-yellow">
-      <h2>Admin Access</h2>
-      <a href="/admin">Go to Admin Page</a>
-      <br><br>
-      <a href="/home">Back to Home</a>
+  <% if (role==='admin') { %>
+    <div class="section form-section">
+      <h2>Admin Panel</h2>
+      <a href="/admin">🔐 Go to Admin Dashboard</a>
     </div>
   <% } %>
+<% } %>
 
-  <% if (role === 'franchisee' || role === 'future-franchisee') { %>
-    <div class="section section-green">
-      <a href="/my-chats">My Chats</a>
-    </div>
-  <% } %>
+<img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
 
-  <img src="/images/logo.png" alt="FranchiScope Logo" class="logo-watermark">
+<script>
+  // toggle founders links
+  document.addEventListener('DOMContentLoaded',()=>{
+    const btn=document.getElementById('founders-btn');
+    const links=document.getElementById('founders-links');
+    if(btn){ btn.addEventListener('click',()=>links.classList.toggle('hidden')); }
 
-  <% if (!role) { %>
-    <div class="founders-section">
-      <button id="founders-btn">Contacts</button>
-      <div id="founders-links" class="hidden">
-        <a href="https://www.linkedin.com/in/charbel-al-najjar-a6708a21b" target="_blank">
-          LinkedIn: Charbel Al Najjar
-        </a><br>
-        <a href="https://www.linkedin.com/in/ghina-harajly-8426ab290" target="_blank">
-          LinkedIn: Ghina Harajly
-        </a>
-      </div>
-    </div>
-  <% } %>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const btn = document.getElementById('founders-btn');
-      const links = document.getElementById('founders-links');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          links.classList.toggle('hidden');
-        });
-      }
-
-      // ✅ NPS highlight on selection
-      document.querySelectorAll('.nps-box input').forEach(radio => {
-        radio.addEventListener('change', e => {
-          document.querySelectorAll('.nps-box').forEach(b => b.classList.remove('selected'));
-          e.target.closest('.nps-box').classList.add('selected');
-        });
+    // highlight selected NPS button
+    document.querySelectorAll('.nps-scale input').forEach(radio=>{
+      radio.addEventListener('change',e=>{
+        document.querySelectorAll('.nps-btn').forEach(b=>b.classList.remove('selected'));
+        e.target.closest('.nps-btn').classList.add('selected');
       });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>

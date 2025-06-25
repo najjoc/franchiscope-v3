@@ -3,21 +3,79 @@
 <head>
   <title>Feedback for <%= franchiseName %></title>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    .feedback-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #007BFF;
+      margin-bottom: 30px;
+    }
+
+    .feedback-item {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      background: #f9f9f9;
+    }
+
+    .feedback-item strong {
+      display: inline-block;
+      width: 100px;
+      color: #333;
+    }
+
+    .feedback-item p {
+      margin: 8px 0;
+    }
+
+    .feedback-item h4 {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .feedback-item form {
+      margin-top: 10px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.2rem;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Feedback for <%= franchiseName %></h1>
-  <ul>
-    <% feedbacks.forEach(function(item) { %>
-      <li>
-        <strong>Rating:</strong> <%= item.rating %><br>
-        <strong>Feedback:</strong> <%= item.info %><br>
-        <% if (item.contractFileName) { %>
-          <strong>Contract:</strong> <a href="/uploads/<%= item.contractFileName %>" target="_blank">View Contract</a><br>
-        <% } else { %>
-          <strong>Contract:</strong> N/A<br>
-        <% } %>
+  <div class="feedback-container">
+    <h1>Feedback for <%= franchiseName %></h1>
 
-        <!-- Show franchisor responses only if userRole is 'franchisee' -->
+    <% feedbacks.forEach(function(item) { %>
+      <div class="feedback-item">
+        <p><strong>Rating:</strong> <%= item.rating %></p>
+        <p><strong>Feedback:</strong> <%= item.info %></p>
+        <p>
+          <strong>Contract:</strong>
+          <% if (item.contractFileName) { %>
+            <a href="/uploads/<%= item.contractFileName %>" target="_blank">View Contract</a>
+          <% } else { %>
+            N/A
+          <% } %>
+        </p>
+
         <% if (userRole === "franchisee") { %>
           <h4>Franchisor Responses:</h4>
           <% responses.forEach(function(r) { if (r.feedbackId.toString() === item._id.toString()) { %>
@@ -25,14 +83,13 @@
           <% }}); %>
         <% } %>
 
-        <!-- Chat with franchisee -->
         <form action="/start-chat/<%= item._id %>" method="get">
           <button type="submit">Chat with Franchisee</button>
         </form>
-        <hr>
-      </li>
+      </div>
     <% }); %>
-  </ul>
-  <a href="/">Back to Home</a>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
 </body>
 </html>

@@ -3,16 +3,82 @@
 <head>
   <title>Chat about <%= franchiseeName %></title>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007BFF;
+      margin-bottom: 30px;
+    }
+
+    #messages {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #messages li {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 10px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    #form {
+      display: flex;
+      justify-content: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #input {
+      flex-grow: 1;
+      padding: 12px;
+      font-size: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+    }
+
+    #form button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1.2rem;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #form button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <h1>Chat about <%= franchiseeName %></h1>
+
   <ul id="messages">
     <% messages.forEach(function(msg) { %>
       <li><strong><%= msg.sender %>:</strong> <%= msg.text %></li>
     <% }); %>
   </ul>
+
   <form id="form" action="">
-    <input id="input" autocomplete="off" /><button>Send</button>
+    <input id="input" autocomplete="off" placeholder="Type your message..." />
+    <button>Send</button>
   </form>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -26,11 +92,7 @@
       e.preventDefault();
       if (input.value) {
         var sender = prompt("Enter your role (franchisee or future-franchisee):");
-
-        socket.emit('chat message', {
-          text: input.value,
-          sender: sender
-        });
+        socket.emit('chat message', { text: input.value, sender: sender });
         input.value = '';
       }
     });

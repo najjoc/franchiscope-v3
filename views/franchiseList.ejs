@@ -2,16 +2,75 @@
 <html>
 <head>
   <title>Choose a Franchise</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    h1 {
+      color: #007BFF;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 15px 0;
+    }
+
+    a.franchise-link {
+      font-size: 1.3rem;
+      color: #333;
+      background-color: #f1f1f1;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    a.franchise-link:hover {
+      background-color: #e2e6ea;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Choose a Franchise to View Feedback</h1>
-  <ul>
-    <% franchises.forEach(function(franchise) { %>
-      <li>
-        <a href="/feedback/<%= franchise %>"><%= franchise %></a>
-      </li>
-    <% }); %>
-  </ul>
-  <a href="/">Back to Home</a>
+  <div class="container">
+    <h1>Choose a Franchise to View Feedback</h1>
+
+    <ul>
+      <% franchises.forEach(function(franchise) { %>
+        <li>
+          <a class="franchise-link" href="/feedback/<%= franchise %>">
+            <%= franchise %>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
 </body>
 </html>

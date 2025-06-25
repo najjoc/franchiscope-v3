@@ -3,37 +3,123 @@
 <head>
   <title>My Responses</title>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007BFF;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: linear-gradient(45deg, #007BFF, #00c6ff);
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #0056b3, #00aaff);
+    }
+
+    .response-block {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #444;
+    }
+
+    p {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
 </head>
 <body>
-  <h1>View Franchisor Responses to My Feedbacks</h1>
+  <h1>Franchisor Responses to Your Feedback</h1>
 
   <form action="/my-responses" method="get">
-    <label>Select your franchise:</label><br>
+    <label>Select your franchise:</label>
     <select name="franchiseName" required>
       <option value="">Select a franchise</option>
       <% franchises.forEach(function(f) { %>
         <option value="<%= f %>" <%= f === selectedFranchise ? 'selected' : '' %>><%= f %></option>
       <% }); %>
-    </select><br><br>
+    </select>
     <button type="submit">View Responses</button>
   </form>
 
   <% if (selectedFranchise) { %>
     <% if (message) { %>
-      <p><%= message %></p>
+      <p style="text-align: center;"><%= message %></p>
     <% } else { %>
       <% responses.forEach(function(r) { %>
-        <div>
+        <div class="response-block">
           <h3>Your Feedback:</h3>
           <p><%= r.feedbackId.info %> (Rating: <%= r.feedbackId.rating %>)</p>
           <h3>Franchisor Response:</h3>
-          <p><%= r.response %> (by <%= r.responder %>)</p>
+          <p><%= r.response %> <br><em>– <%= r.responder %></em></p>
         </div>
-        <hr>
       <% }); %>
     <% } %>
   <% } %>
 
-  <a href="/">Back to Home</a>
+  <a href="/">← Back to Home</a>
 </body>
 </html>

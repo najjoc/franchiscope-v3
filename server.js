@@ -113,10 +113,16 @@ app.post('/home', async (req, res) => {
   res.render('index', { role, franchises, feedbacks: [], message: null, selectedFranchise: null });
 });
 
-// franchise list
+// franchise list — **with error handling**
 app.get('/franchise-list', async (req, res) => {
-  const franchises = await User.distinct('franchiseName', { role: 'franchisee' });
-  res.render('franchiselist', { franchises });
+  try {
+    const franchises = await User.distinct('franchiseName', { role: 'franchisee' });
+    console.log('Franchises fetched:', franchises);
+    res.render('franchiselist', { franchises });
+  } catch (error) {
+    console.error('Error fetching franchises:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 // submit feedback (NPS 0-10)
